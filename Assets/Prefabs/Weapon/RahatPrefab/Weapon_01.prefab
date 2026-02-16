@@ -370,7 +370,6 @@ GameObject:
   m_Component:
   - component: {fileID: 562198615999941508}
   - component: {fileID: 3461287139233283486}
-  - component: {fileID: 1343698727766251428}
   m_Layer: 10
   m_Name: Weapon_01
   m_TagString: Untagged
@@ -418,21 +417,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1343698727766251428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8604977036013109861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f007ddc82029d90408d10a4bffe19511, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ItemRotate
-  isRotate: 1
-  isEquipped: 0
-  boxCollider: {fileID: 3461287139233283486}
-  rotationDuration: 3
-  hoverDistance: 0.5
-  hoverDuration: 2

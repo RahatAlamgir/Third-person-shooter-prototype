@@ -7,12 +7,19 @@ using UnityEngine.SceneManagement;
 
 public class PlayerUIManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI ammoCount;
-    [SerializeField] private Rifle rifle;
+
+    private GameObject player;
+    
+    private Rifle rifle;
     [SerializeField] private GameObject pauseMenuUI;
-    [SerializeField] private StarterAssetsInputs input;
+    private StarterAssetsInputs input;
 
     private bool isPaused = false;
+
+    [Header("PlayerData")]
+    [SerializeField] private TextMeshProUGUI playerHP;
+    [SerializeField] private TextMeshProUGUI playerMoney;
+    [SerializeField] private TextMeshProUGUI ammoCount;
 
     [Header("ScriptableObject")]
     [SerializeField] private PlayerInventoryData playerInventoryData;
@@ -21,19 +28,44 @@ public class PlayerUIManager : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null)
+        {
+            FindPlayerComponent();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        ammoCount.text = rifle.GetBulletCount() + "/" + playerInventoryData.totalBullets;
-        if (input.tab || input.esc)
+        
+        if (input.tab || input.esc )
         {
             if (isPaused)  OnResumePress();
             else OnPausePress();
             input.tab = false;
         }
         
+    }
+
+    public void FixedUpdate()
+    {
+        if (player!=null) 
+        {
+            if (ammoCount != null) ammoCount.text = rifle.GetBulletCount() + "/" + playerInventoryData.totalBullets;
+
+            if (playerHP != null) playerHP.text = playerInventoryData.health.ToString();
+            if (playerMoney != null) playerMoney.text = playerInventoryData.money.ToString();
+        }
+        
+
+    }
+    private void FindPlayerComponent()
+    {
+        rifle = player.GetComponentInChildren<Rifle>();
+        input = player.GetComponentInChildren<StarterAssetsInputs>();
     }
 
     public void OnRestartPress()

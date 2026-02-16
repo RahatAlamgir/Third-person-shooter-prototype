@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 
 
-public class ThirdPersonShooterController : MonoBehaviour , IDamageAble
+public class ThirdPersonShooterController : MonoBehaviour 
 {
     [Header("Aim")]
     [SerializeField] private CinemachineCamera aimVirtualCamera;
@@ -46,10 +46,11 @@ public class ThirdPersonShooterController : MonoBehaviour , IDamageAble
     private StarterAssetsInputs input;
     private ThirdPersonController thirdPersonController;
     private CharacterController characterController;
+    private Health health;
     private Camera mainCam;
     private Vector3 aimDirection;
     
-    //private int grenadeMask;
+    
 
     private float _fireDelayTimer = 0f;
 
@@ -72,15 +73,19 @@ public class ThirdPersonShooterController : MonoBehaviour , IDamageAble
     [Header("ScriptableObject")]
     [SerializeField] private PlayerInventoryData playerInventoryData;
 
+    
+    
+
     private void Awake()
     {
 
-        _UIManager.SetActive(true);
-        _UI.SetActive(true);
+        if(_UIManager!=null) _UIManager.SetActive(true);
+        if (_UI != null) _UI.SetActive(true);
 
         input = GetComponent<StarterAssetsInputs>();
         thirdPersonController = GetComponent<ThirdPersonController>();
         characterController = GetComponent<CharacterController>();
+        health = GetComponent<Health>();
         
 
         // CACHE THE CAMERA: Calling Camera.main every frame is very expensive
@@ -94,7 +99,10 @@ public class ThirdPersonShooterController : MonoBehaviour , IDamageAble
         InputBool();
         RigHandler();
 
-        
+        if (playerInventoryData != null )
+        {
+            UpDatePlayerData();
+        }
 
         // 2. Optimized Character Swap
 
@@ -286,8 +294,21 @@ public class ThirdPersonShooterController : MonoBehaviour , IDamageAble
         holdGunRig.weight = Mathf.MoveTowards(holdGunRig.weight, gunHold, Time.deltaTime * transitionSpeed);
     }
 
+    public void SetCrosshairVisible(bool value)
+    {
+        if (crossHair != null) crossHair.enabled = value;
 
-    public void TakeDamage(float amount) { /* Logic here */ }
-    public int ObjectType() => 1;
-    public bool IsDead() => false;
+    }
+
+    private void UpDatePlayerData()
+    {
+        if(health!=null) playerInventoryData.health = Mathf.RoundToInt(health.GetHealth());
+
+    }
+
+    public bool IsDead()
+    {
+       if(health!=null) return health.IsDead();
+       return false;
+    }
 }

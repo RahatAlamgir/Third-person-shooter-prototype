@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 
 public class RifleBullet : MonoBehaviour
@@ -91,35 +92,51 @@ public class RifleBullet : MonoBehaviour
         // Still using Instantiate here (Pool these next if stutter persists!)
         float nugeAmount = 0.05f;
         Vector3 spawnPos = hit.point + (hit.normal * nugeAmount);
+        float finalDamage = Mathf.Round(GetCurrentDamage());
 
-        IDamageAble target = hit.collider.GetComponentInParent<IDamageAble>();
+        Hitbox hitbox = hit.collider.GetComponent<Hitbox>();
+        IDamageAble target = null;
+        if (hitbox != null)
+        {
+            // It's a bone hit! Use the multiplier
+            finalDamage = Mathf.Round(baseDamage * hitbox.GetMultiplier());
+            hitbox.ExecuteHit(finalDamage);
+
+            // Find the target interface for the effects logic below
+            target = hit.collider.GetComponentInParent<IDamageAble>();
+        }
+        else
+        {
+            // It's a direct hit to a main body or something else
+            target = hit.collider.GetComponentInParent<IDamageAble>();
+            if (target != null) target.TakeDamage(finalDamage);
+        }
+
+        // --- EFFECTS LOGIC ---
         if (target != null)
         {
+            // Blood vs Impact
             int objectType = target.ObjectType();
-            if (objectType == 1 || objectType == 2)
-            {
-                SimplePooler.Instance.SpawnFromPool("Blood", spawnPos, Quaternion.LookRotation(hit.normal));
-            }
-            else
-            {
-                SimplePooler.Instance.SpawnFromPool("Impact", spawnPos, Quaternion.LookRotation(hit.normal));
-            }
-            
-            float finalDamage = Mathf.Round(GetCurrentDamage());
+            string effect = (objectType == 1 || objectType == 2) ? "Blood" : "Impact";
+            SimplePooler.Instance.SpawnFromPool(effect, spawnPos, Quaternion.LookRotation(hit.normal));
 
             if (!target.IsDead())
             {
-                target.TakeDamage(finalDamage);
-
-                // 2. Spawn Damage Number from Pool
+                // Spawn Damage Number
                 GameObject popup = SimplePooler.Instance.SpawnFromPool("Popup", spawnPos + Vector3.up * 0.5f, Quaternion.identity);
                 if (popup != null)
                 {
-                    popup.transform.position = hit.point + Vector3.up * 0.5f;
-                    popup.GetComponentInChildren<DamagePopup>().SetValue(finalDamage);
+                    var damagePopup = popup.GetComponentInChildren<DamagePopup>();
+                    
+                    if (hitbox != null)
+                    {
+                        damagePopup.SetValue(finalDamage, hitbox.GetMultiplier());
+                    } else
+                    {
+                        damagePopup.SetValue(finalDamage);
+                    }
                 }
-            }     
-                
+            }
         }
         else
         {

@@ -14,6 +14,11 @@ public class Interactor : MonoBehaviour
     private Camera mainCam;
     private float startOffset = 3.8f;
 
+    private void OnDisable()
+    {
+        ToggleUI(false);
+    }
+
 
     private void Start()
     {

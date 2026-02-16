@@ -1,12 +1,10 @@
 using UnityEngine;
 
-public class NPCController : MonoBehaviour,IDamageAble
+public class NPCController : MonoBehaviour
 {
 
-    [SerializeField] private Animator animator;
-
-    [SerializeField] private float health = 100f;
-    [SerializeField] private HealthBar healthBar;
+    private Animator animator;
+    private Health health;
     private enum state { idle , walk , run , job , dead, dance}
     [SerializeField] private state _state = state.idle;
 
@@ -15,31 +13,23 @@ public class NPCController : MonoBehaviour,IDamageAble
     private int _animIDIdle;
     private int _animIDjob;
     private int _animIDDie;
-   
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+        health = GetComponent<Health>();
+    }
     void Start()
     {
-        healthBar.SetMaxHealth(health);
+        
         AssignAnimationIDs();
         NPCAnimation();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    public void TakeDamage(float amount)
-    {
-        if (health <= 0)
-        {
-            healthBar.SetHealth(0);
-            return;
-        }
-        health -= amount;
-        healthBar.SetHealth(health);
-    }
+  
 
     private void NPCAnimation()
     {

@@ -135,10 +135,10 @@ namespace StarterAssets
 
         [Header ("Others")]
         private Animator _animator;
-        [SerializeField] private CharacterController _controller;
-        [SerializeField] private StarterAssetsInputs _input;
+        private CharacterController _controller;
+        private StarterAssetsInputs _input;
         private GameObject _mainCamera;
-        [SerializeField] private ThirdPersonShooterController playerController;
+        private ThirdPersonShooterController playerController;
 
         private const float _threshold = 0.01f;
 
@@ -171,8 +171,12 @@ namespace StarterAssets
 
         private void Awake()
         {
+            playerController = GetComponent<ThirdPersonShooterController>();
+            _controller = GetComponent<CharacterController>();
+            _input = GetComponent<StarterAssetsInputs>();
+
             // get a reference to our main camera
-            //playerController = GetComponent<ThirdPersonShooterController>();
+
             if (_mainCamera == null)
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -184,8 +188,7 @@ namespace StarterAssets
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
 
             _hasAnimator = TryGetComponent(out _animator);
-            //_controller = GetComponent<CharacterController>();
-            //_input = GetComponent<StarterAssetsInputs>();
+            
             
 #if ENABLE_INPUT_SYSTEM 
             _playerInput = GetComponent<PlayerInput>();

@@ -81,7 +81,7 @@ MonoBehaviour:
   maxLifeTime: 0.8
   ricochet: 1
   maxBounces: 2
-  angleThreshold: 0.3
+  angleThreshold: 0.2
 --- !u!96 &6136394910065447816
 TrailRenderer:
   serializedVersion: 4

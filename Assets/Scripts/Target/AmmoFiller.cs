@@ -10,15 +10,19 @@ public class AmmoFiller : MonoBehaviour , Iinteractable
     [SerializeField] private bool Infinity = true;
     [SerializeField] private PlayerInventoryData inventoryData;
 
-    [Header("Animation Settings")]
-    [SerializeField] private Animator animator;
-    [SerializeField] private string openTrigger = "Open";
+    private ChestAnimator animator;
+    
 
     [Header("Arrow")]
     [SerializeField] private GameObject arrow;
     [SerializeField] private bool marked = true;
 
     private GameObject activeArrow;
+
+    private void Awake()
+    {
+        animator = GetComponent<ChestAnimator>();
+    }
 
     private void Start()
     {
@@ -56,10 +60,11 @@ public class AmmoFiller : MonoBehaviour , Iinteractable
         }
         if (animator != null)
         {
-            animator.SetTrigger("Open");
+            if(Infinity) animator.ChestOpenClose();
+            else animator.ChestOpen();
         }
 
-        // 3. Disable interaction (so you can't open an already open box)
+        
 
         if (marked)
         {
@@ -69,8 +74,6 @@ public class AmmoFiller : MonoBehaviour , Iinteractable
         
         canInteract = Infinity;
         
-
-
     }
 
     public void SetMarked(bool marked)

@@ -10,6 +10,7 @@ public class DamagePopup : MonoBehaviour
 
     private Transform camTransform;
     private Vector3 startScale;
+    
 
     void Awake()
     {
@@ -28,6 +29,8 @@ public class DamagePopup : MonoBehaviour
         transform.localScale = startScale;
         damageText.alpha = 1f;
 
+        
+
         RotateToCamera();
 
         // 2. DOTween Juice: Fade out and then Deactivate
@@ -36,12 +39,31 @@ public class DamagePopup : MonoBehaviour
             .OnComplete(() => gameObject.SetActive(false));
 
         // 3. Optional: Little "Pop" effect when it appears
-        transform.DOPunchScale(Vector3.one * 0.2f, 0.2f);
+        
     }
 
-    public void SetValue(float amount)
+    
+    public void SetValue(float amount, float damageMultiplier = 1)
     {
         damageText.text = amount.ToString();
+        
+        if (damageMultiplier <= 1)
+        {
+            SetColorFontSize(Color.white, 36);
+        } else if (damageMultiplier <= 2)
+        {
+            SetColorFontSize(Color.yellow, 40);
+        }
+        else
+        {
+            SetColorFontSize(Color.red, 46);
+        }
+    }
+    private void SetColorFontSize(Color color ,float fontSize, bool shake = false)
+    {
+        damageText.color = color;
+        damageText.fontSize = fontSize;
+        transform.DOPunchScale(Vector3.one * 0.2f, 0.2f);
     }
 
     void LateUpdate()
@@ -62,4 +84,6 @@ public class DamagePopup : MonoBehaviour
         // for UI popups than LookAt, which can flip objects.
         transform.forward = camTransform.forward;
     }
+
+    
 }

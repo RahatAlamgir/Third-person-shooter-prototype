@@ -32,6 +32,6 @@ public class ObjectTakeDamage : MonoBehaviour, IDamageAble
 
         // The Coroutine finishes here and stops using CPU!
     }
-    public int ObjectType() => 2;
+    public int ObjectType() => 4;
     public bool IsDead() => false;
 }
