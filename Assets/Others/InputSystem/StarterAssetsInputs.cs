@@ -23,7 +23,13 @@ namespace StarterAssets
 		public bool esc;
 		public bool alt;
 
-		[Header("Movement Settings")]
+        [Header("Car Input Values")]
+        public float drive;
+        public float steer;
+        public bool brake;
+        public bool exit;
+
+        [Header("Movement Settings")]
 		public bool analogMovement;
 
 		[Header("Mouse Cursor Settings")]
@@ -94,10 +100,31 @@ namespace StarterAssets
 			AltInput(value.isPressed);
 		}
 
+		// Car
+
+		public void OnDrive(InputValue value)
+        {
+			DriveInput(value.Get<float>());
+        }
+
+		public void OnSteer(InputValue value)
+		{
+			SteerInput(value.Get<float>());
+		}
+		public void OnBrake(InputValue value)
+		{
+			BrakeInput(value.isPressed);
+		}
+
+		public void OnExit(InputValue value)
+		{
+			ExitInput(value.isPressed);
+		}
+
 #endif
 
 
-		public void MoveInput(Vector2 newMoveDirection)
+        public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
 		} 
@@ -157,6 +184,24 @@ namespace StarterAssets
 			alt = newAltState;
 		}
 
+		// Car input
+
+		public void DriveInput(float newDriveState)
+		{
+			drive = newDriveState;
+		}
+		public void SteerInput(float newSteerState)
+		{
+			steer = newSteerState;
+		}
+		public void BrakeInput(bool newBrakeState)
+		{
+			brake = newBrakeState;
+		}
+		public void ExitInput(bool newExitState)
+		{
+			exit = newExitState;
+		}
 
 
 		private void OnApplicationFocus(bool hasFocus)

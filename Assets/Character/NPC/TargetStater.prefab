@@ -838,6 +838,7 @@ GameObject:
   - component: {fileID: 2965626932174956350}
   - component: {fileID: 1751111049365711403}
   - component: {fileID: 5934239609285008729}
+  - component: {fileID: 8361155852072367833}
   m_Layer: 9
   m_Name: TargetStater
   m_TagString: Untagged
@@ -906,9 +907,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b955fb43aee93d84888cf436e1202f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  animator: {fileID: 19013504749681724}
-  health: 100
-  healthBar: {fileID: 7596756504166074228}
   _state: 0
 --- !u!136 &2965626932174956350
 CapsuleCollider:
@@ -971,6 +969,24 @@ MonoBehaviour:
   targetQuestDisplay: {fileID: 0}
   arrow: {fileID: 1673564799825264253, guid: c2d54796e120b5b419c19ab72e31060d, type: 3}
   marked: 1
+--- !u!114 &8361155852072367833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2319525724230950399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d131a8bb949d824fa900a35b6c3c2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  health: 100
+  invincible: 0
+  resistaance: 0
+  buff: 0
+  debuff: 0
+  objectType: 1
 --- !u!1 &2323851033204413400
 GameObject:
   m_ObjectHideFlags: 0
@@ -3093,17 +3109,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5511277690756829740, guid: 68377d25cf7594844a7970a91cb0cbc2, type: 3}
   m_PrefabInstance: {fileID: 1397750269553480914}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7596756504166074228 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8793515476614648742, guid: 68377d25cf7594844a7970a91cb0cbc2, type: 3}
-  m_PrefabInstance: {fileID: 1397750269553480914}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2027cdc432c12a9418f098dcb4556c3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!1001 &4026192294327102463
 PrefabInstance:
   m_ObjectHideFlags: 0

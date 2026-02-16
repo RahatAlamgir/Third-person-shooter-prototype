@@ -1944,6 +1944,7 @@ GameObject:
   - component: {fileID: 8946037682003581720}
   - component: {fileID: 7150202125094896524}
   - component: {fileID: 4884021093406706165}
+  - component: {fileID: 5420586567161567560}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -2012,9 +2013,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b955fb43aee93d84888cf436e1202f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  animator: {fileID: 8946037682003581720}
-  health: 100
-  healthBar: {fileID: 1864719307566685332}
   _state: 5
 --- !u!136 &4884021093406706165
 CapsuleCollider:
@@ -2039,6 +2037,21 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.93, z: 0}
+--- !u!114 &5420586567161567560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6389561949983869338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d131a8bb949d824fa900a35b6c3c2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  health: 100
+  resistaance: 0
+  objectType: 1
 --- !u!1 &6489611506859893662
 GameObject:
   m_ObjectHideFlags: 0
@@ -3162,17 +3175,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68377d25cf7594844a7970a91cb0cbc2, type: 3}
---- !u!114 &1864719307566685332 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8793515476614648742, guid: 68377d25cf7594844a7970a91cb0cbc2, type: 3}
-  m_PrefabInstance: {fileID: 7199012701590720306}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2027cdc432c12a9418f098dcb4556c3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!224 &3428358846426357022 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5511277690756829740, guid: 68377d25cf7594844a7970a91cb0cbc2, type: 3}
